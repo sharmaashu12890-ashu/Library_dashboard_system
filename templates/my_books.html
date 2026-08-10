@@ -1,0 +1,228 @@
+{#% comment %} {% extends "base.html" %}
+
+{% block title %}
+My Books
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">My Borrowed Books</h2>
+
+<table class="table table-bordered table-striped">
+
+    <thead class="table-dark">
+
+        <tr>
+            <th>ID</th>
+            <th>Book</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Issue Date</th>
+            <th>Status</th>
+            <th>Return</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for borrow in borrows %}
+
+        <tr>
+
+            <td>{{ borrow.id }}</td>
+
+            <td>{{ borrow.book.title }}</td>
+
+            <td>{{ borrow.book.author }}</td>
+
+            <td>{{ borrow.book.category }}</td>
+
+            <td>{{ borrow.issue_date }}</td>
+
+            <td>
+
+                {% if borrow.status == "Borrowed" %}
+
+                    <span class="badge bg-warning text-dark">
+                        Borrowed
+                    </span>
+
+                {% else %}
+
+                    <span class="badge bg-success">
+                        Returned
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+            <td>
+
+                {% if borrow.status == "Borrowed" %}
+
+                    <a href="{{ url_for('routes.return_borrow', borrow_id=borrow.id) }}"
+                       class="btn btn-success btn-sm">
+                        Return
+                    </a>
+
+                {% else %}
+
+                    <span class="text-muted">
+                        Returned
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% else %}
+
+        <tr>
+            <td colspan="7" class="text-center">
+                You have not borrowed any books.
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
+
+ {% endcomment %#}
+
+
+{% extends "base.html" %}
+
+{% block title %}
+My Books
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">My Borrowed Books</h2>
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+
+            <tr>
+                <th>ID</th>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Issue Date</th>
+                <th>Return Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for borrow in borrows %}
+
+            <tr>
+
+                <td>
+                    {{ borrow.id }}
+                </td>
+
+                <td>
+                    {{ borrow.book.title }}
+                </td>
+
+                <td>
+                    {{ borrow.book.author }}
+                </td>
+
+                <td>
+                    {{ borrow.book.category }}
+                </td>
+
+                <td>
+                    {{ borrow.issue_date }}
+                </td>
+
+                <td>
+
+                    {% if borrow.return_date %}
+                        {{ borrow.return_date }}
+                    {% else %}
+                        -
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    {% if borrow.status == "Borrowed" %}
+
+                        <span class="badge bg-warning text-dark">
+                            Borrowed
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-success">
+                            Returned
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    {% if borrow.status == "Borrowed" %}
+
+                        <a href="{{ url_for('routes.return_borrow',
+                                             borrow_id=borrow.id) }}"
+                           class="btn btn-success btn-sm">
+
+                            Return Book
+
+                        </a>
+
+                    {% else %}
+
+                        <button class="btn btn-secondary btn-sm" disabled>
+                            Returned
+                        </button>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+        {% else %}
+
+            <tr>
+
+                <td colspan="8" class="text-center">
+
+                    You have not borrowed any books.
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

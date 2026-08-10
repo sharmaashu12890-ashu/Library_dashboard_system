@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}
+Books
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Book List</h2>
+
+<a href="{{ url_for('routes.register_book') }}"
+   class="btn btn-primary mb-3">
+    Add Book
+</a>
+
+<table class="table table-bordered table-striped">
+
+    <thead class="table-dark">
+
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Available</th>
+            <th>Action</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for book in books %}
+
+        <tr>
+
+            <td>{{ book.id }}</td>
+
+            <td>{{ book.title }}</td>
+
+            <td>{{ book.author }}</td>
+
+            <td>{{ book.category }}</td>
+
+            <td>{{ book.quantity }}</td>
+
+            <td>{{ book.available }}</td>
+
+            <td>
+
+                <!-- Update -->
+                <a href="{{ url_for('routes.update_book_route', book_id=book.id) }}"
+                   class="btn btn-warning btn-sm">
+                    Update
+                </a>
+
+                <!-- Delete -->
+                <a href="{{ url_for('routes.delete_book_route', book_id=book.id) }}"
+                   class="btn btn-danger btn-sm">
+                    Delete
+                </a>
+
+
+                {% if book.id in active_borrows %}
+
+                    <!-- Return -->
+                    <a href="{{ url_for('routes.return_borrow',
+                                        borrow_id=active_borrows[book.id]) }}"
+                       class="btn btn-info btn-sm">
+                        Return
+                    </a>
+
+
+                {% elif book.available > 0 %}
+
+                    <!-- Borrow -->
+                    <a href="{{ url_for('routes.borrow',
+                                        book_id=book.id) }}"
+                       class="btn btn-success btn-sm">
+                        Borrow
+                    </a>
+
+
+                {% else %}
+
+                    <!-- Not Available -->
+                    <button class="btn btn-secondary btn-sm" disabled>
+                        Not Available
+                    </button>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+    {% else %}
+
+        <tr>
+
+            <td colspan="7" class="text-center">
+                No books found.
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

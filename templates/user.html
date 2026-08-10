@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+User List
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">User List</h2>
+
+<a href="{{ url_for('routes.register') }}" class="btn btn-primary mb-3">
+    Add User
+</a>
+
+<table class="table table-bordered table-striped">
+
+    <thead class="table-dark">
+
+    <tr>
+
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Action</th>
+
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for user in users %}
+
+    <tr>
+
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+
+        <td>
+
+            <a href="{{ url_for('routes.update', user_id=user.id) }}"
+               class="btn btn-warning btn-sm">
+                Update
+            </a>
+
+            <a href="{{ url_for('routes.delete', user_id=user.id) }}"
+               class="btn btn-danger btn-sm">
+                Delete
+            </a>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
