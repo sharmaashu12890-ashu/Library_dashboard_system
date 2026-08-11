@@ -77,10 +77,6 @@ def delete(user_id):
     return redirect(url_for("routes.user_list"))
 
 
-# @routes.route("/books")
-# def book_list():
-#     books = get_all_books()
-#     return render_template("book.html",books=books)
 
 @routes.route("/books")
 def book_list():
@@ -169,25 +165,6 @@ def delete_book_route(book_id):
     return redirect(url_for("routes.book_list"))
 
 
-
-# @routes.route("/login", methods = ["GET", "POST"])
-# def login():
-#     if request.method == "POST":
-#         email = request.form["email"]
-#         password = request.form["password"]
-
-#         success, message, user = login_user(
-#             email,
-#             password
-#         )   
-
-#         flash(message)
-
-#         session["user_id"] = user.id
-#         session["user_name"] = user.name
-
-#         return redirect(url_for("routes.book_list"))
-#     return render_template("login.html")
 
 
 @routes.route("/login", methods=["GET", "POST"])

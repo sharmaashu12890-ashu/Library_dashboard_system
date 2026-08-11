@@ -1,24 +1,14 @@
-import os
-# from .env import *   
+import os    
 from dotenv import load_dotenv  
 load_dotenv()  
 
 
 class Config:
-#     DB_USER =  os.getenv(DB_USER)
-#     DB_PASSWORD =
-#     DB_HOST
-#     DB_NAME
-#     SECRET_KEY
-
-
-
-
-    DB_USER = "root"
-    DB_PASSWORD = "ashishdb"
-    DB_HOST = "localhost"
-    DB_NAME = "library_db"
-    SECRET_KEY = "ashish@123"
+    DB_USER =  os.getenv("DB_USER")
+    DB_PASSWORD = os.getenv("DB_PASSWORD")
+    DB_HOST = os.getenv("DB_HOST")
+    DB_NAME = os.getenv("DB_NAME")
+    SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 

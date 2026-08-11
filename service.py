@@ -86,8 +86,6 @@ def update_book(book_id, title, author, category, quantity):
 
 
 
-
-
 def login_user(email, password):
     user = User.query.filter_by(email=email).first()
     if not user:
@@ -98,47 +96,6 @@ def login_user(email, password):
     
     return True, "Login successfully", user
 
-
-
-
-# def borrow_book(user_id, book_id):
-
-#     user = User.query.get(user_id)
-#     book = Book.query.get(book_id)
-
-#     if not user:
-#         return False, "User not found."
-
-#     if not book:
-#         return False, "Book not found."
-
-#     if book.available <= 0:
-#         return False, "Book is not available."
-
-    
-#     existing_borrow = Borrow.query.filter_by(
-#         user_id=user_id,
-#         book_id=book_id,
-#         status="Borrowed"
-#     ).first()
-
-#     if existing_borrow:
-#         return False, "You already borrowed this book."
-
-
-#     borrow = Borrow(
-#         user_id=user_id,
-#         book_id=book_id,
-#         status="Borrowed"
-#     )
-
-#     db.session.add(borrow)
-
-#     book.available -= 1
-
-#     db.session.commit()
-
-#     return True, "Book borrowed successfully."
 
 
 def borrow_book(user_id, book_id):
@@ -155,17 +112,15 @@ def borrow_book(user_id, book_id):
     if book.available <= 0:
         return False, "Book is not available."
 
-    # Check if user already borrowed this book
+   
     existing_borrow = Borrow.query.filter_by(
         user_id=user_id,
         book_id=book_id,
-        status="Borrowed"
-    ).first()
+        status="Borrowed").first()
 
     if existing_borrow:
         return False, "You already borrowed this book."
-
-    # Create Borrow OBJECT
+    
     borrow = Borrow(
         user_id=user_id,
         book_id=book_id,
@@ -175,7 +130,6 @@ def borrow_book(user_id, book_id):
 
     db.session.add(borrow)
 
-    
     book.available -= 1
 
     db.session.commit()
@@ -250,19 +204,3 @@ def get_active_borrows(user_id):
         borrow.book_id: borrow.id
         for borrow in borrows
     }
-
-
-# def delete_book(book_id):
-#     book = Book.query.get(book_id)
-#     if not book:
-#         return False, "Book not found"
-#     db.session.delete(book)
-#     db.session.commit()
-#     return True, "Book deleted successfully"
-
-
-
-
-
-
-

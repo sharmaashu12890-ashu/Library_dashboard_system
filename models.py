@@ -36,6 +36,3 @@ class Borrow(db.Model):
     def __repr__(self):
         return f"<Borrow User:{self.user_id} Book:{self.book_id}>"
 
-    
-
-
