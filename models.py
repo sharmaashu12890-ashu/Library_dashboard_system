@@ -32,6 +32,10 @@ class Borrow(db.Model):
     issue_date = db.Column(db.DateTime, default=datetime.utcnow)
     return_date = db.Column(db.DateTime)
     status = db.Column(db.String(25), default="Borrowed")
+    
+    book= db.relationship("Book", backref='borrows')
+
+
 
     def __repr__(self):
         return f"<Borrow User:{self.user_id} Book:{self.book_id}>"
